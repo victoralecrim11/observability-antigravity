@@ -45,6 +45,9 @@ jobs:
             --exclude='/.github/' \
             --exclude='/README.md' \
             --exclude='/.gitignore' \
+            --exclude='/docs/INSTALL.md' \
+            --exclude='/scripts/atualizar-plugin.ps1' \
+            --exclude='/scripts/atualizar-plugin.sh' \
             canonical/dist/antigravity/observability/ target/
           git -C canonical rev-parse HEAD > target/SOURCE_REVISION
       - name: Validate destination before commit
