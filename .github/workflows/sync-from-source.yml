@@ -1,0 +1,64 @@
+name: Sync from canonical source
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 * * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: observability-antigravity-sync
+  cancel-in-progress: false
+
+jobs:
+  sync-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout destination repository
+        uses: actions/checkout@v4
+        with:
+          path: target
+          persist-credentials: true
+      - name: Checkout canonical public source
+        uses: actions/checkout@v4
+        with:
+          repository: victoralecrim11/plugin-observability-lab
+          ref: main
+          path: canonical
+          persist-credentials: false
+      - name: Configure Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate source and build distribution
+        working-directory: canonical
+        run: |
+          npm run check
+          npm run build
+          node scripts/security-scan.mjs --path dist/antigravity/observability
+          node scripts/validate-package.mjs --path dist/antigravity/observability
+      - name: Sync generated files (preserve workflows and README)
+        run: |
+          rsync -a --delete \
+            --exclude='/.git/' \
+            --exclude='/.github/' \
+            --exclude='/README.md' \
+            --exclude='/.gitignore' \
+            canonical/dist/antigravity/observability/ target/
+          git -C canonical rev-parse HEAD > target/SOURCE_REVISION
+      - name: Validate destination before commit
+        working-directory: target
+        run: npm run check
+      - name: Commit and push only if content changed
+        working-directory: target
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(sync): update distribution from canonical source"
+            git push origin HEAD:main
+          else
+            echo "Already in sync"
+          fi
