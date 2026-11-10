@@ -1,9 +1,9 @@
 {
   "platform": "antigravity",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "domainSkills": 1,
   "operationalSkills": 0,
-  "workflowReferences": 19,
+  "workflowReferences": 21,
   "sourceOfTruth": "workflows/",
   "mode": "offline",
   "remoteWrites": 0
