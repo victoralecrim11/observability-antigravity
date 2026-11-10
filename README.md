@@ -1,6 +1,6 @@
 # Observability Dev Toolkit — Antigravity
 
-Distribuição **exclusiva para Google Antigravity**, derivada do [Observability Dev Toolkit](https://github.com/victoralecrim11/plugin-observability-lab). Contém 23 skills, agentes, regras, referências e scripts Node.js. O manifesto plugin.json está na raiz deste repositório.
+Distribuição **exclusiva para Google Antigravity**, derivada do [Observability Dev Toolkit](https://github.com/victoralecrim11/plugin-observability-lab). Contém uma skill contextual, 19 workflows em referências, quatro especialidades, cinco agentes, três regras e scripts Node.js. O manifesto plugin.json está na raiz deste repositório.
 
 > Os exemplos são genéricos. Nenhum host, segredo, documento ou dado corporativo é distribuído neste plugin.
 
@@ -71,7 +71,7 @@ O comando conectar-ambiente verifica o ambiente existente em modo somente leitur
 
 - plugin.json: manifesto do Antigravity.
 - mcp_config.json: MCP vazio; sem credenciais incluídas.
-- skills/: quatro especialidades e dezenove operações.
+- skills/: uma entrada contextual, quatro especialidades e dezenove workflows em referências.
 - agents/: papéis de especialistas.
 - rules/: guardrails documentados; carregamento depende do runtime.
 - scripts/, tests/ e references/: auditorias e validação offline.
