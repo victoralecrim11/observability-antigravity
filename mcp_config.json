@@ -1,3 +1,10 @@
 {
-  "mcpServers": {}
+  "mcpServers": {
+    "observability-api": {
+      "command": "node",
+      "args": [
+        "${PLUGIN_ROOT}/scripts/mcp-server.mjs"
+      ]
+    }
+  }
 }
