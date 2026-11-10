@@ -70,7 +70,7 @@ O comando conectar-ambiente verifica o ambiente existente em modo somente leitur
 ## Estrutura
 
 - plugin.json: manifesto do Antigravity.
-- mcp_config.json: MCP vazio; sem credenciais incluídas.
+- mcp_config.json: ponte MCP local; sem destinos ou credenciais incluídos.
 - skills/: uma entrada contextual, quatro especialidades e vinte e um workflows em referências.
 - agents/: papéis de especialistas.
 - rules/: guardrails documentados; carregamento depende do runtime.
@@ -90,7 +90,10 @@ A execução remota exige credenciais e aprovação explícita; testes offline n
 
 Peça `importar-template` para um template Zabbix YAML/JSON/XML ou
 `importar-dashboard` para um dashboard Grafana JSON. A skill usa ferramentas de
-navegador, controle do computador ou API disponíveis e autorizadas; não oferece
-acesso próprio nem ignora login/MFA. Ela inspeciona conflitos e dependências,
+navegador, controle do computador ou API disponíveis e autorizadas; inclui ponte MCP para APIs com tokens configurados localmente; não ignora permissões ou MFA. Ela inspeciona conflitos e dependências,
 prepara backup/diff, executa o escopo autorizado e verifica o resultado.
 Consulte [o procedimento completo](references/import-workflow.md).
+
+## Conexões persistentes (0.8.0)
+
+A ponte local MCP usa tokens Zabbix e de conta de serviço Grafana. Configure uma vez com `powershell.exe -NoProfile -File .\scripts\configurar-conexoes.ps1` na raiz instalada. Tokens ficam protegidos pelo Windows fora do plugin; Node.js 20+ no PATH é necessário. Leitura por padrão, importações opcionais exigem autorização específica. Consulte [configuração completa e limites](references/mcp-connections.md). Nenhuma conexão real acompanha a distribuição.
