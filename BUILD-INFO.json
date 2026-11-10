@@ -1,6 +1,6 @@
 {
   "platform": "antigravity",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "domainSkills": 4,
   "operationalSkills": 19,
   "sourceOfTruth": "workflows/",
